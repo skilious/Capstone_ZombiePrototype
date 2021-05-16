@@ -228,8 +228,8 @@ GameObject:
   m_Component:
   - component: {fileID: 680305188}
   - component: {fileID: 680305191}
-  - component: {fileID: 680305190}
   - component: {fileID: 680305189}
+  - component: {fileID: 680305190}
   m_Layer: 0
   m_Name: cm
   m_TagString: Untagged
@@ -263,11 +263,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c9beda531928fc40968802117a5d256, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_RecenterTarget: 0
+  m_RecenterTarget: 1
   m_VerticalAxis:
     Value: 0
-    m_SpeedMode: 0
-    m_MaxSpeed: 300
+    m_SpeedMode: 1
+    m_MaxSpeed: 0.1
     m_AccelTime: 0.1
     m_DecelTime: 0.1
     m_InputAxisName: 
@@ -290,8 +290,8 @@ MonoBehaviour:
     m_LegacyVelocityFilterStrength: -1
   m_HorizontalAxis:
     Value: 0
-    m_SpeedMode: 0
-    m_MaxSpeed: 300
+    m_SpeedMode: 1
+    m_MaxSpeed: 0.1
     m_AccelTime: 0.1
     m_DecelTime: 0.1
     m_InputAxisName: 
@@ -322,10 +322,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 680305187}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36d1163fa822e8b418a0a603ec078d5c, type: 3}
+  m_Script: {fileID: 11500000, guid: fa7155796051b734daa718462081dc5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Damping: 0
+  m_BindingMode: 1
+  m_FollowOffset: {x: 0, y: 0, z: 0}
+  m_XDamping: 1
+  m_YDamping: 1
+  m_ZDamping: 1
+  m_AngularDampingMode: 0
+  m_PitchDamping: 0
+  m_YawDamping: 0
+  m_RollDamping: 0
+  m_AngularDamping: 0
 --- !u!114 &680305191
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -660,7 +669,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerIndex: -1
   XYAxis: {fileID: -7288209469962325070, guid: cb4ca5c83d9b16a41891a8332a34b505, type: 3}
-  ZAxis: {fileID: -7288209469962325070, guid: cb4ca5c83d9b16a41891a8332a34b505, type: 3}
+  ZAxis: {fileID: 0}
 --- !u!114 &1888291387
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -869,6 +878,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2395663968d92414eaada640488b91e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vcam: {fileID: 1888291387}
+  camTransposer: {fileID: 0}
+  actionTriggered: 0
 --- !u!136 &2014411467
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -878,7 +890,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 2014411465}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
@@ -890,7 +902,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2014411465}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
