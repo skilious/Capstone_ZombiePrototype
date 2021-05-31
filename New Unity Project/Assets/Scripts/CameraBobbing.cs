@@ -23,8 +23,8 @@ public class CameraBobbing : MonoBehaviour
     void Update()
     {
         Vector3 inputMovement = InputManager.instance.GetPlayerMovement();
-        defaultPosY = PlayerController.ActionTriggered ? ChangePosY(-1) : ChangePosY(0);
-        walkingBobbingSpeed = PlayerController.ActionTriggered ? 3 : 6;
+        defaultPosY = PlayerController.ActionTriggered || PlayerController.UnderCeiling ? ChangePosY(-1) : ChangePosY(0);
+        walkingBobbingSpeed = PlayerController.ActionTriggered || PlayerController.UnderCeiling ? 3 : 8;
         if (inputMovement.x != 0f || inputMovement.y != 0f)
         {
             //Player is moving

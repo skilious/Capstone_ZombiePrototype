@@ -23,12 +23,16 @@ public class PlayerController : MonoBehaviour
     private float crouchHeight = 1.0f;
     //Height value when standing.
     private float defaultHeight = 2.0f;
-
+    private static bool underCeiling = false;
     private static bool actionTriggered = false;
 
     public static bool ActionTriggered
     {
         get { return actionTriggered; }
+    }
+    public static bool UnderCeiling
+    {
+        get { return underCeiling; }
     }
     private void Start()
     {
@@ -58,7 +62,7 @@ public class PlayerController : MonoBehaviour
         playerVelocity.y += gravityValue * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
 
-        bool underCeiling = Physics.Raycast(controller.transform.position, Vector3.up, 2.0f);
+        underCeiling = Physics.Raycast(controller.transform.position, Vector3.up, 2.0f);
 
         if (inputManager.PlayerCrouched() && !underCeiling)
         {
@@ -66,7 +70,7 @@ public class PlayerController : MonoBehaviour
             {
                 actionTriggered = false;
             }
-            else
+            else 
             {
                 actionTriggered = true;
             }
