@@ -12,8 +12,8 @@ public class PlayerController : MonoBehaviour
     private Vector3 playerVelocity;
     private bool groundedPlayer;
     protected float playerSpeed = 0.0f;
-    private readonly float crouchSpeed = 3.0f;
-    private readonly float walkSpeed = 8.0f;
+    private readonly float crouchSpeed = 1.0f;
+    private readonly float walkSpeed = 50.0f;
     private readonly float gravityValue = -9.81f;
 
     private InputManager inputManager;
@@ -24,12 +24,7 @@ public class PlayerController : MonoBehaviour
     //Height value when standing.
     private float defaultHeight = 2.0f;
 
-    private static bool actionTriggered = false;
-
-    public static bool ActionTriggered
-    {
-        get { return actionTriggered; }
-    }
+    public bool actionTriggered = false;
     private void Start()
     {
         camTransposer = vcam.GetCinemachineComponent<CinemachineTransposer>();
@@ -58,39 +53,36 @@ public class PlayerController : MonoBehaviour
         playerVelocity.y += gravityValue * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
 
-        bool underCeiling = Physics.Raycast(controller.transform.position, Vector3.up, 2.0f);
-
-        if (inputManager.PlayerCrouched() && !underCeiling)
+        if (inputManager.PlayerCrouched())
         {
             if (actionTriggered)
             {
                 actionTriggered = false;
             }
             else
-            {
                 actionTriggered = true;
-            }
         }
 
-        if (actionTriggered || underCeiling)
+        if (actionTriggered)
         {
             print("Crouching");
-            controller.height = Mathf.MoveTowards(controller.height, crouchHeight, Time.deltaTime / 0.3f);
+            controller.height = Mathf.MoveTowards(controller.height, crouchHeight, Time.deltaTime / 0.5f);
+
             playerSpeed = crouchSpeed;
         }
         else if (!actionTriggered)
         {
             print("Standing");
-            controller.height = Mathf.MoveTowards(controller.height, defaultHeight, Time.deltaTime / 0.2f);
+            controller.height = Mathf.MoveTowards(controller.height, defaultHeight, Time.deltaTime / 0.5f); 
             playerSpeed = walkSpeed;
         }
-        camTransposer.m_FollowOffset.y = actionTriggered || underCeiling ? HeightChange(-1.0f, 0.3f) : HeightChange(0.0f, 0.2f);
+        camTransposer.m_FollowOffset.y = actionTriggered ? HeightChange(-1.0f) : HeightChange(0.0f);
         controller.center = Vector3.down * (defaultHeight - controller.height) / 2.0f;
     }
 
-    private float HeightChange(float N, float speed)
+    private float HeightChange(float N)
     {
-        float results = Mathf.MoveTowards(camTransposer.m_FollowOffset.y, N, Time.deltaTime / speed);
+        float results = Mathf.MoveTowards(camTransposer.m_FollowOffset.y, N, Time.deltaTime / 0.5f);
         return results;
     }
 }
